@@ -3,13 +3,13 @@ import ReactDOM from "react-dom";
 import AWSAppSyncClient from "aws-appsync";
 import AppSyncConfig from "./aws-exports";
 import { ApolloProvider } from "react-apollo";
-import { Rehydrated } from "aws-appsync-react";
 
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { AuthOptions, AUTH_TYPE } from "aws-appsync-auth-link";
 
 const client = new AWSAppSyncClient({
+  disableOffline: true,
   url: AppSyncConfig.aws_appsync_graphqlEndpoint,
   region: AppSyncConfig.aws_appsync_region,
   auth: {
@@ -20,9 +20,7 @@ const client = new AWSAppSyncClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <Rehydrated>
-      <App />
-    </Rehydrated>
+    <App />
   </ApolloProvider>,
   document.getElementById("root")
 );
